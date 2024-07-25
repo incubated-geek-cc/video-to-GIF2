@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang='en' class='notranslate' translate='no'>
+	<head>
+	    <meta name='google' content='notranslate' />
+        <meta charset='UTF-8'>
+	    <meta name='description' content='Transform Video to GIF.'>
+	    <meta name="author" content="Charmaine Chui" />
+	    <meta name='keywords' content='gifjs,offline, API,Video,GIF'>
+	    <meta name='viewport' content='width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0' />
+      	<meta http-equiv='X-UA-Compatible' content='IE=Edge,chrome=1' />
+	    <meta http-equiv='Content-Language' content='en' />
+     	<meta name='msapplication-TileColor' content='#ffffff' />
+      	<meta name='theme-color' content='#ffffff' />
+      	<meta name='apple-mobile-web-app-status-bar-style' content='black-translucent' />
+      	<meta name='apple-mobile-web-app-capable' content='yes' />
+      	<meta name='mobile-web-app-capable' content='yes' />
+      	<meta name='HandheldFriendly' content='True' />
+      	<meta name='MobileOptimized' content='320' />  
+
+      	<link rel="apple-touch-icon" sizes="76x76" href="img/favicon-76.png">
+		<link rel="apple-touch-icon" sizes="120x120" href="img/favicon-120.png">
+		<link rel="apple-touch-icon" sizes="152x152" href="img/favicon-152.png">
+		<link rel="icon" sizes="196x196" href="img/favicon-196.png">
+		<link rel="icon" type="image/x-icon" href="img/favicon.ico">
+
+		<link rel='stylesheet' type='text/css' href='css/bootstrap-4.5.2.min.css' />
+		<link rel='stylesheet' type='text/css' href='css/offcanvas.css' />
+		<link rel='stylesheet' type='text/css' href='css/main.css' />
+		<title>Video To GIF Convertor ⸬ Built With gifjs For Offline Use</title>
+	</head>
+	<body>
+	<noscript>You need to enable JavaScript to run this app.</noscript>
+	<nav class="navbar navbar-expand-sm navbar-light fixed-top">
+	  <a class="navbar-brand p-0"><img id='site-logo' src='img/site-logo.png' /></a>
+	    <ul class="nav navbar-nav ml-auto nowrap">
+	    	<!-- <li class="nav-item">
+	    		<span id='isCrossOriginIsolated' class='emoji'>🔘</li><span class='unicode mr-1 ml-1'>ᶜʳᵒˢˢᴼʳⁱᵍⁱⁿᴵˢᵒˡᵃᵗᵉᵈ</span>
+	    	</li> -->
+	    	<li class="nav-item">
+		      	<button id='infoModalBtn' type="button" class="site-header-btn btn btn-sm bg-custom-one text-white rounded-pill pl-2 pr-3 pt-1 pb-1 text-center border-0" data-toggle="tooltip" data-original-title="<p class='mb-0 small text-left'>Select to view information modal."><span class="text-white text-center font-weight-400 mr-2 pl-1 symbol">𝖎</span>About</button>
+		    </li>
+		    <li class="nav-item">
+		      	<button id="clearCache" type="button" class="site-header-btn btn btn-sm bg-custom-one text-white rounded-pill pl-2 pr-2 pt-1 pb-1 text-center border-0" data-toggle="tooltip" data-original-title="<p class='mb-0 small text-left'>Select to reload page and clear local storage.</p>"><span class="text-white text-center font-weight-400 mr-1 symbol">🧹</span>Clear Cache</button>
+		    </li>
+	    </ul>
+	</nav>
+
+
+	<div id="siteModal" class="custom-scrollbar modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    	<div class="modal-dialog"><div class="modal-content"></div></div>
+	</div>
+
+	<div id='dropFileZone' class="card rounded-0 p-4 ml-2 mr-2 mt-1 mb-1">
+		<div class='rounded-0 pl-0 pr-0 pt-0 pb-2 border-0 font-weight-bold text-left'>Upload Video Clip:</div>
+    	<div class='card-body rounded-0 p-2 border-custom-one text-center h-100'>
+    		<strong class='text-custom-one'>Drag & Drop</strong>
+    		<hr class="invisible-divider mb-1 mt-1">
+    		<span class='text-custom-one'>…or</span>
+    		<label for="upload" class="site-header-btn btn btn-sm bg-custom-one text-white rounded-pill mb-1 mt-1 pl-2 pr-2 pt-1 pb-1 text-center border-0" data-toggle="tooltip" data-original-title="<p class='mb-0 small text-left'>Select Video file (.mp4, .webm, .avi, .mpeg, .flv, .mov, .3gp) from local disk"><span class="text-white text-center font-weight-400 mr-2 pl-1 symbol">
+	      		<input id="upload" type="file" accept=".mp4, .webm, .avi, .mpeg, .flv, .mov, .3gp" />
+	      		<span class="text-white text-center font-weight-400 mr-1 symbol">📂</span>Choose File
+	      	</label>
+    	</div>
+    </div>
+	
+
+	<div id="main-wrapper" class='w-100' hidden>
+	 	<div class="page-wrapper mt-0 mb-0 mr-1 pr-0 pl-1 pt-0 pb-0">
+			<!-- card -->
+            <div class="card rounded-0 p-0 m-0 h-100">
+            	<!-- card-body -->
+            	<div class='card-body rounded-0 p-1 h-100'>
+            		<p id='errorDisplay' class='mt-0 ml-2 mr-2 mb-0 pt-0 pb-0 pl-1 pr-1 small text-danger nowrap custom-scrollbar'></p>
+					<div id="mediaWrapper" class='row ml-2 mr-2 mb-2 mt-0 p-2'></div>
+
+					<div class="input-group ml-2 mr-2 input-group-sm">
+						<div class="input-group-prepend">
+							<span class="input-group-text bg-none user-select-none border-0 text-custom-one"><span class='symbol mr-1'>🎬</span><span class='unicode pr-1'>ˢᵗᵃʳᵗ</span></span>
+						</div>
+						<input id='startVidPos' type='number' class='form-control form-control-sm' min='0.0' value='0.0'>
+						<div class="input-group-append">
+							<span class="input-group-text bg-none border-0 p-0"><button type='button' class='use-current-time btn btn-sm bg-custom-one text-white rounded-0' value='startVidPos' data-toggle="tooltip" data-original-title="<p class='mb-0 small text-left'>Set start position to current timestamp</p>"><span class='symbol pr-1'>⏱️</span><span class='unicode'>ᶜᵘʳʳᵉⁿᵗ</span></button></span>
+						</div>
+						<div class="input-group-prepend">
+							<span class="input-group-text bg-none user-select-none border-0 text-custom-one"><span class='symbol mr-1'>🎬</span><span class='unicode'>ᵉⁿᵈ</span></span>
+						</div>
+						<input id='endVidPos' type='number' class='form-control form-control-sm' min='0.0' value='0.0'>
+						<div class="input-group-append">
+							<span class="input-group-text bg-none border-0 p-0"><button type='button' class='use-current-time btn btn-sm bg-custom-one text-white rounded-0' value='endVidPos' data-toggle="tooltip" data-original-title="<p class='mb-0 small text-left'>Set end position to current timestamp</p>"><span class='symbol pr-1'>⏱️</span><span class='unicode'>ᶜᵘʳʳᵉⁿᵗ</span></button></span>
+						</div>
+				    </div>
+
+				    <div class="input-group ml-2 mr-2 mt-2 input-group-sm">
+				    	<div class="input-group-prepend">
+							<span class="input-group-text bg-none user-select-none border-0 text-custom-one"><span class='symbol pr-1'>📏</span><span class='unicode'>ʷⁱᵈᵗʰ</span></span>
+						</div>
+						<input id='gifWidth' type='number' class='form-control form-control-sm'>
+						<div class="input-group-append">
+							<span class="input-group-text bg-none border-0 pt-0 pb-0 pl-1 pr-0 text-custom-one"><span class='unicode pr-1'>ᵖˣ</span></span>
+						</div>
+						
+						<div class="input-group-prepend">
+							<span class="input-group-text bg-none user-select-none border-0 text-custom-one"><span class='symbol pr-1'>📏</span><span class='unicode'>ʰᵉⁱᵍʰᵗ</span></span>
+						</div>
+						<input id='gifHeight' type='number' class='form-control form-control-sm'>
+						<div class="input-group-append">
+							<span class="input-group-text bg-none border-0 pt-0 pb-0 pl-1 pr-0 text-custom-one"><span class='unicode pr-1'>ᵖˣ</span></span>
+						</div>
+					</div>
+
+					<div class="input-group ml-2 mr-2 mt-2 input-group-sm">
+						<div class="input-group-prepend">
+							<span class="input-group-text bg-none user-select-none border-0 text-custom-one"><span class='symbol pr-1'>🎨</span><span class='unicode pr-1'>ᶜᵒˡᵒʳ</span></span>
+						</div>
+						<div class="input-group-append">
+							<!-- <div class='row'> -->
+								<!-- <div class='col-12'> -->
+									<span class="input-group-text bg-none border-0 p-0 text-custom-one"><input id='adjustQualitySlider' type='range' min='1' max='30' step='1' /></span>
+								<!-- </div>
+								<div class='col-12'>
+									<span class="input-group-text bg-none border-0 p-0 text-custom-one" id="adjustQualitySliderTicks">------</span>
+								</div> -->
+							<!-- </div> -->
+						</div>
+						<input id='adjustQualityVal' type='number' min='1' max='30' step='1' class='form-control form-control-sm border text-center text-custom-one ml-1 pl-0 pr-0 font-weight-bolder' />
+						<!-- // [1,30] | Best=1 | >20 not much speed improvement. 10 is default. -->
+						<!-- <div class="input-group-append">
+							<span class="input-group-text bg-none border-0 text-custom-one badge pt-1 pb-1 mr-2 ml-2 symbol">×</span>
+						</div> -->
+						 <!-- 𝚂𝚝𝚊𝚛𝚝 𝚝𝚒𝚖𝚎 (𝚜) -->
+			  			 <!-- 𝙴𝚗𝚍 𝚝𝚒𝚖𝚎 ˢⁱᶻᵉ(𝚜) -->
+			  			 <!-- 𝚊𝚞𝚝𝚘 -->
+						<!-- <div class="input-group-prepend">
+							<span class="input-group-text user-select-none symbol rounded-0"></span>
+						</div> -->
+						<!-- 
+						<select id="fps" class="form-control form-control-sm rounded-0 small">
+							<option value="5">5</option>
+							<option value="7">7</option>
+							<option value="8">8</option>
+							<option value="10" selected="selected">10</option>
+							<option value="12">12</option>
+							<option value="16">16</option>
+							<option value="20">20</option>
+							<option value="25">25</option>
+							<option value="33">33</option>
+						</select> -->
+						<!-- <span>
+					  		<label class="m-0"><button type="button" class="btn btn-outline-secondary btn-sm rounded-0" data-toggle="popover" data-title='<span class="nowrap"><span class="symbol mr-1">🛈</span><abbr title="Frames Per Second">FPS</abbr> = ⌗ 🇫🇷🇦🇲🇪🇸 🇵🇪🇷 🇸🇪🇨🇴🇳🇩</span>' data-dismissible="true" data-placement="right" data-content='<div class="w-100 h-100 table-responsive table-responsive-sm custom-scrollbar">
+				  			<p>The higher the frame rate, the smoother the animation, leading to a significantly greater file size. A typical GIF ranges between 12fps and 30fps.</p>
+				  			<p>To ensure reasonable processing time, maximum upload file size is kept to <strong>no more than 2.0 GB.</strong></p>
+				  			<p>To capture a precise start and end timestamp for output GIF, <span class="symbol badge badge-secondary border">❚❚</span> video and select <span class="btn-sm bg-custom-one text-white rounded-0"><span class="symbol pr-1">⏱️</span><span class="unicode">ᶜᵘʳʳᵉⁿᵗ</span></span></p>
+				  			<p>Resize and adjust the dimensions for output as required. Note: Max output length (height or width) is <strong>capped at 600px.</strong></p></div>
+                    	'>🛈</button></small>
+					    </span> -->	
+						<button id="runBtn" type="button" class="site-header-btn btn btn-sm bg-custom-one text-white rounded-pill pl-3 pr-3 pt-1 pb-1 ml-1 mr-1 text-center border-0 symbol" data-toggle="tooltip" data-original-title="<p class='mb-0 small text-left'>Select to run conversion process</p>">𝖢𝗈𝗇𝗏𝖾𝗋𝗍‼</button>
+					</div>
+
+					<div id='renderGIFContainer' class="row m-2 p-2 table-responsive table-responsive-sm border custom-scrollbar">
+						<p class='mb-0 pt-1 pb-1'><button id="saveOutputBtn" type="button" class="site-header-btn btn btn-sm bg-custom-one text-white rounded-pill pl-3 pr-3 pt-1 pb-1 ml-2 mr-2 text-center border-0 symbol" data-toggle="tooltip" data-original-title="<p class='mb-0 small text-left'>Select to save converted GIF file</p>" hidden>Save 💾</button></p>
+					</div>
+
+
+				</div>
+				<!-- // card-body -->
+            </div>
+       		 <!-- // card -->
+		</div>
+	    <!-- // page-wrapper -->
+	</div>
+
+	<script type='text/javascript' src='js/polyfill.js'></script>
+    <script type='text/javascript' src='js/ie10-viewport-bug-workaround.js'></script>
+    <script type='text/javascript' src='js/bootstrap-native-v4.js'></script>
+    <script type="text/javascript" src="js/gifjs/LZWEncoder.js"></script>
+	<script type="text/javascript" src="js/gifjs/NeuQuant.js"></script>
+	<script type="text/javascript" src="js/gifjs/GIFEncoder.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+	</body>
+</html>
