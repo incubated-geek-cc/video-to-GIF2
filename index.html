@@ -113,54 +113,16 @@
 							<span class="input-group-text bg-none user-select-none border-0 text-custom-one"><span class='symbol pr-1'>🎨</span><span class='unicode pr-1'>ᶜᵒˡᵒʳ</span></span>
 						</div>
 						<div class="input-group-append">
-							<!-- <div class='row'> -->
-								<!-- <div class='col-12'> -->
-									<span class="input-group-text bg-none border-0 p-0 text-custom-one"><input id='adjustQualitySlider' type='range' min='1' max='30' step='1' /></span>
-								<!-- </div>
-								<div class='col-12'>
-									<span class="input-group-text bg-none border-0 p-0 text-custom-one" id="adjustQualitySliderTicks">------</span>
-								</div> -->
-							<!-- </div> -->
+							<p class='mb-0'><span class="input-group-text bg-none border-0 p-0 text-custom-one"><input id='adjustQualitySlider' type='range' min='1' max='30' step='1' /></span><span class="input-group-text bg-none border-0 p-0 text-custom-one"><span class='badge badge-pill'>Best=1</span><span class='badge badge-pill'>Default=10</span></span></p>
 						</div>
 						<input id='adjustQualityVal' type='number' min='1' max='30' step='1' class='form-control form-control-sm border text-center text-custom-one ml-1 pl-0 pr-0 font-weight-bolder' />
 						<!-- // [1,30] | Best=1 | >20 not much speed improvement. 10 is default. -->
-						<!-- <div class="input-group-append">
-							<span class="input-group-text bg-none border-0 text-custom-one badge pt-1 pb-1 mr-2 ml-2 symbol">×</span>
-						</div> -->
-						 <!-- 𝚂𝚝𝚊𝚛𝚝 𝚝𝚒𝚖𝚎 (𝚜) -->
-			  			 <!-- 𝙴𝚗𝚍 𝚝𝚒𝚖𝚎 ˢⁱᶻᵉ(𝚜) -->
-			  			 <!-- 𝚊𝚞𝚝𝚘 -->
-						<!-- <div class="input-group-prepend">
-							<span class="input-group-text user-select-none symbol rounded-0"></span>
-						</div> -->
-						<!-- 
-						<select id="fps" class="form-control form-control-sm rounded-0 small">
-							<option value="5">5</option>
-							<option value="7">7</option>
-							<option value="8">8</option>
-							<option value="10" selected="selected">10</option>
-							<option value="12">12</option>
-							<option value="16">16</option>
-							<option value="20">20</option>
-							<option value="25">25</option>
-							<option value="33">33</option>
-						</select> -->
-						<!-- <span>
-					  		<label class="m-0"><button type="button" class="btn btn-outline-secondary btn-sm rounded-0" data-toggle="popover" data-title='<span class="nowrap"><span class="symbol mr-1">🛈</span><abbr title="Frames Per Second">FPS</abbr> = ⌗ 🇫🇷🇦🇲🇪🇸 🇵🇪🇷 🇸🇪🇨🇴🇳🇩</span>' data-dismissible="true" data-placement="right" data-content='<div class="w-100 h-100 table-responsive table-responsive-sm custom-scrollbar">
-				  			<p>The higher the frame rate, the smoother the animation, leading to a significantly greater file size. A typical GIF ranges between 12fps and 30fps.</p>
-				  			<p>To ensure reasonable processing time, maximum upload file size is kept to <strong>no more than 2.0 GB.</strong></p>
-				  			<p>To capture a precise start and end timestamp for output GIF, <span class="symbol badge badge-secondary border">❚❚</span> video and select <span class="btn-sm bg-custom-one text-white rounded-0"><span class="symbol pr-1">⏱️</span><span class="unicode">ᶜᵘʳʳᵉⁿᵗ</span></span></p>
-				  			<p>Resize and adjust the dimensions for output as required. Note: Max output length (height or width) is <strong>capped at 600px.</strong></p></div>
-                    	'>🛈</button></small>
-					    </span> -->	
 						<button id="runBtn" type="button" class="site-header-btn btn btn-sm bg-custom-one text-white rounded-pill pl-3 pr-3 pt-1 pb-1 ml-1 mr-1 text-center border-0 symbol" data-toggle="tooltip" data-original-title="<p class='mb-0 small text-left'>Select to run conversion process</p>">𝖢𝗈𝗇𝗏𝖾𝗋𝗍‼</button>
 					</div>
 
 					<div id='renderGIFContainer' class="row m-2 p-2 table-responsive table-responsive-sm border custom-scrollbar">
 						<p class='mb-0 pt-1 pb-1'><button id="saveOutputBtn" type="button" class="site-header-btn btn btn-sm bg-custom-one text-white rounded-pill pl-3 pr-3 pt-1 pb-1 ml-2 mr-2 text-center border-0 symbol" data-toggle="tooltip" data-original-title="<p class='mb-0 small text-left'>Select to save converted GIF file</p>" hidden>Save 💾</button></p>
 					</div>
-
-
 				</div>
 				<!-- // card-body -->
             </div>

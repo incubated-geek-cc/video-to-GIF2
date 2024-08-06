@@ -3,7 +3,7 @@
 
   # 🎞️ video-to-GIF2
 
-  ### 🛠️ Converts video clips (.mp4) to gif (.gif) files. Uses HTML5 Canvas to render image graphics.
+  ### 🛠️ Converts video clips (.mp4) to gif (.gif) files. Uses HTML5 Canvas to render image graphics. No internet or web server setup required.
 
 **🔌 An offline in-browser setup.**
 
@@ -32,9 +32,9 @@
 <div align="left">
 	<ul>
 		<li>📥 Import video file</li>
-		<li>Set custom dimensions of output GIF (Max 𝟼𝟶𝟶𝚙𝚡)</li>
+		<li>📐 Set custom dimensions of output GIF (Max 𝟼𝟶𝟶𝚙𝚡)</li>
 		<li>🎨 Adjust chroma quality settings: Range is <strong>(𝟶, 𝟹𝟶]</strong> where 𝚖𝚒𝚗𝚒𝚖𝚞𝚖=𝟷 is the best quality at the cost of slower processing speed</li>
-		<li>Renders generated GIF</li>
+		<li>🔄 Renders generated GIF</li>
 		<li>📤 Export GIF file</li>
 	</ul>
 </div>
@@ -47,7 +47,7 @@
 
 ---
 
-#### 🌮 Please buy me a <a href='https://www.buymeacoffee.com/geekcc' target='_blank'><img src='https://raw.githubusercontent.com/incubated-geek-cc/incubated-geek-cc/main/buy_me_a_taco.png' /></a>! 😋
+#### 🌮 Please buy me a <a href='https://www.buymeacoffee.com/geekcc' target='_blank'><img src='https://raw.githubusercontent.com/incubated-geek-cc/incubated-geek-cc/main/buy_me_a_taco.png' height='80px'></a>! 😋
 
 ## Special Mention(s)
 - Inspired by [video to animated GIF converter](https://ezgif.com/video-to-GIF).

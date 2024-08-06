@@ -26,14 +26,12 @@
  * @author Kevin Kwok (JavaScript version - https://github.com/antimatter15/jsgif)
  * @version 0.1 AS3 implementation
  */
-NeuQuant = function() {
-
+const NeuQuant = function() {
 	var exports = {};
 	var netsize = 256; /* number of colours used */
 
 	/* four primes near 500 - assume no image has a length so large */
 	/* that it is divisible by all four primes */
-
 	var prime1 = 499;
 	var prime2 = 491;
 	var prime3 = 487;
@@ -51,7 +49,6 @@ NeuQuant = function() {
 	/*
 	 * Network Definitions -------------------
 	 */
-
 	var maxnetpos = (netsize - 1);
 	var netbiasshift = 4; /* bias for colour values */
 	var ncycles = 100; /* no. of learning cycles */
@@ -86,7 +83,6 @@ NeuQuant = function() {
 	/*
 	 * Types and Global Variables --------------------------
 	 */
-
 	var thepicture; /* the input image itself */
 	var lengthcount; /* lengthcount = H*W*3 */
 	var samplefac; /* sampling factor 1..30 */
@@ -141,11 +137,9 @@ NeuQuant = function() {
 	};
 
 	/*
-	 * Insertion sort of network and building of netindex[0..255] (to do after
-	 * unbias)
+	 * Insertion sort of network and building of netindex[0..255] (to do after unbias)
 	 * -------------------------------------------------------------------------------
 	 */
-
 	const inxbuild = function inxbuild() {
 		let i;
 		let j;
@@ -292,7 +286,6 @@ NeuQuant = function() {
 	 * index
 	 * ----------------------------------------------------------------------------
 	 */
-
 	const map = exports.map = function map(b, g, r) {
 		let i;
 		let j;
@@ -379,7 +372,6 @@ NeuQuant = function() {
 	 * for sort
 	 * -----------------------------------------------------------------------------------
 	 */
-
 	const unbiasnet = function unbiasnet() {
 		let i;
 		let j;
@@ -397,7 +389,6 @@ NeuQuant = function() {
 	 * radpower[|i-j|]
 	 * ---------------------------------------------------------------------------------
 	 */
-
 	const alterneigh = function alterneigh(rad, i, b, g, r) {
 		let j;
 		let k;
@@ -446,9 +437,7 @@ NeuQuant = function() {
 	 * Move neuron i towards biased (b,g,r) by factor alpha
 	 * ----------------------------------------------------
 	 */
-
 	const altersingle = function altersingle(alpha, i, b, g, r) {
-
 		/* alter hit neuron */
 		let n = network[i];
 		n[0] -= (alpha * (n[0] - b)) / initalpha;
@@ -459,9 +448,7 @@ NeuQuant = function() {
 	/*
 	 * Search for biased BGR values ----------------------------
 	 */
-
 	const contest = function contest(b, g, r) {
-
 		/* finds closest neuron (min dist) and updates freq */
 		/* finds best neuron (min dist-bias) and returns position */
 		/* for frequently chosen neurons, freq[i] is high and bias[i] is negative */

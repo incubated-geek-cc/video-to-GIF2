@@ -6,8 +6,7 @@
  * @author Kevin Kwok (JavaScript version - https://github.com/antimatter15/jsgif)
  * @version 0.1 AS3 implementation
  */
-
-LZWEncoder = function() {
+const LZWEncoder = function() {
 	var exports = {};
 
 	var EOF = -1;
@@ -22,7 +21,6 @@ LZWEncoder = function() {
 	// Lempel-Ziv compression based on 'compress'. GIF modifications by
 	// David Rowley (mgardi@watdcsu.waterloo.edu)
 	// General DEFINEs
-
 	var BITS = 12;
 	var HSIZE = 5003; // 80% occupancy
 
@@ -46,7 +44,6 @@ LZWEncoder = function() {
 
 	// block compression parameters -- after all codes are used up,
 	// and compression rate changes, start over.
-
 	var clear_flg = false;
 
 	// Algorithm: use open addressing double hashing (no chaining) on the
@@ -60,7 +57,6 @@ LZWEncoder = function() {
 	// for the decompressor. Late addition: construct the table according to
 	// file size for noticeable speed improvement on small files. Please direct
 	// questions about this implementation to ames!jaw.
-
 	var g_init_bits;
 	var ClearCode;
 	var EOFCode;
@@ -78,7 +74,6 @@ LZWEncoder = function() {
 	// Maintain a BITS character long buffer (so that 8 codes will
 	// fit in it exactly). Use the VAX insv instruction to insert each
 	// code in turn. When the buffer fills up empty it and start over.
-
 	var cur_accum = 0;
 	var cur_bits = 0;
 	var masks = [0x0000, 0x0001, 0x0003, 0x0007, 0x000F, 0x001F, 0x003F, 0x007F, 0x00FF, 0x01FF, 0x03FF, 0x07FF, 0x0FFF, 0x1FFF, 0x3FFF, 0x7FFF, 0xFFFF];
@@ -105,7 +100,6 @@ LZWEncoder = function() {
 
 	// Clear out the hash table
 	// table clear for block compress
-
 	const cl_block = function cl_block(outs) {
 		cl_hash(hsize);
 		free_ent = ClearCode + 2;
@@ -115,7 +109,9 @@ LZWEncoder = function() {
 
 	// reset code table
 	const cl_hash = function cl_hash(hsize) {
-		for (var i = 0; i < hsize; ++i) htab[i] = -1;
+		for (var i = 0; i < hsize; ++i) {
+			htab[i] = -1;
+		}
 	};
 
 	const compress = exports.compress = function compress(init_bits, outs) {
@@ -183,8 +179,9 @@ LZWEncoder = function() {
 			if (free_ent < maxmaxcode) {
 				codetab[i] = free_ent++; // code -> hashtable
 				htab[i] = fcode;
+			} else {
+				cl_block(outs);
 			}
-			else cl_block(outs);
 		}
 
 		// Put out the final code.
@@ -217,9 +214,10 @@ LZWEncoder = function() {
 	// ----------------------------------------------------------------------------
 	// Return the next pixel from the image
 	// ----------------------------------------------------------------------------
-
 	const nextPixel = function nextPixel() {
-		if (remaining === 0) return EOF;
+		if (remaining === 0) {
+			return EOF;
+		}
 		--remaining;
 		let pix = pixAry[curPixel++];
 		return pix & 0xff;
@@ -228,9 +226,11 @@ LZWEncoder = function() {
 	const output = function output(code, outs) {
 		cur_accum &= masks[cur_bits];
 
-		if (cur_bits > 0) cur_accum |= (code << cur_bits);
-		else cur_accum = code;
-
+		if (cur_bits > 0) {
+			cur_accum |= (code << cur_bits);
+		} else {
+			cur_accum = code;
+		}
 		cur_bits += n_bits;
 
 		while (cur_bits >= 8) {
@@ -241,35 +241,30 @@ LZWEncoder = function() {
 
 		// If the next entry is going to be too big for the code size,
 		// then increase it, if possible.
-
 		if (free_ent > maxcode || clear_flg) {
-
 			if (clear_flg) {
-
 				maxcode = MAXCODE(n_bits = g_init_bits);
 				clear_flg = false;
-
 			} else {
-
 				++n_bits;
-				if (n_bits == maxbits) maxcode = maxmaxcode;
-				else maxcode = MAXCODE(n_bits);
+				if (n_bits == maxbits) {
+					maxcode = maxmaxcode;
+				} else {
+					maxcode = MAXCODE(n_bits);
+				}
 			}
 		}
 
 		if (code == EOFCode) {
-
 			// At EOF, write the rest of the buffer.
 			while (cur_bits > 0) {
 				char_out((cur_accum & 0xff), outs);
 				cur_accum >>= 8;
 				cur_bits -= 8;
 			}
-
 			flush_char(outs);
 		}
 	};
-
 	LZWEncoder.apply(this, arguments);
 
 	return exports;
